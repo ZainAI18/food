@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 
-const display = Playfair_Display({ variable: "--font-display", subsets: ["latin"], style: ["normal", "italic"] });
-const sans = Poppins({ variable: "--font-sans", subsets: ["latin"], weight: ["300", "400", "500", "600"] });
+const display = Noto_Serif_SC({ variable: "--font-display", subsets: ["latin"], weight: ["400", "500", "600"] });
+const sans = Noto_Sans_SC({ variable: "--font-sans", subsets: ["latin"], weight: ["300", "400", "500", "600"] });
 
 export const metadata: Metadata = {
-  title: "SAVOR — A Film About Taste",
-  description: "Ten exceptional dishes, carefully selected every day.",
-  openGraph: {
-    title: "SAVOR — A Film About Taste",
-    description: "Ten exceptional dishes, carefully selected every day.",
-    images: [{ url: "/og.png", width: 1680, height: 945, alt: "SAVOR — A Film About Taste" }],
-  },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  title: "SAVOR｜品味此刻",
+  description: "每天十道精心挑选的美食，打开即可探索。",
+  openGraph: { title: "SAVOR｜品味此刻", description: "每天十道精心挑选的美食，打开即可探索。" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <main className="home">
-      <section className="hero-stage" aria-label="Discover food">
+      <section className="hero-stage" aria-label="品味此刻">
         <div
           className="hero-media"
           style={{ transform: `scale(${1 + progress * 0.08})`, filter: `brightness(${0.78 - progress * 0.42}) blur(${progress * 2}px)` }}
@@ -37,32 +37,32 @@ export default function Home() {
         </div>
 
         <div className="hero-copy" style={{ opacity: 1 - progress * 1.6, transform: `translateY(${progress * -42}px)` }}>
-          <p className="eyebrow">A FILM ABOUT TASTE</p>
-          <h1>DISCOVER<br /><em>FOOD</em></h1>
-          <p className="hero-line">One unforgettable bite at a time.</p>
+          <p className="eyebrow">一场关于味觉的影像</p>
+          <h1>品味<br /><em>此刻</em></h1>
+          <p className="hero-line">每一道美食，都值得被认真欣赏。</p>
         </div>
 
         <div className="scroll-cue" style={{ opacity: 1 - progress * 2 }}>
-          <span>SCROLL TO TASTE</span><i />
+          <span>向下探索</span><i />
         </div>
       </section>
 
       <section className="manifesto">
-        <p className="section-index">01 — THE SELECTION</p>
+        <p className="section-index">第一幕 — 每日精选</p>
         <div className="manifesto-copy">
-          <p>EVERY DAY</p>
-          <h2>10 carefully<br />selected <em>foods.</em></h2>
-          <div className="manifesto-meta"><span>Curated by appetite</span><span>Updated daily</span></div>
+          <p>每天更新</p>
+          <h2>十道精心挑选<br />的<em>美食。</em></h2>
+          <div className="manifesto-meta"><span>无须注册，打开即可探索</span><span>每日都有新的味觉灵感</span></div>
         </div>
-        <div className="ambient-word">TASTE</div>
+        <div className="ambient-word">味觉</div>
       </section>
 
       <section className="invitation">
         <div className="invitation-image" />
         <div className="invitation-shade" />
         <div className="invitation-content">
-          <p className="eyebrow">TODAY&apos;S EDIT</p>
-          <h2>Let desire<br /><em>choose the menu.</em></h2>
+          <p className="eyebrow">今日之选</p>
+          <h2>让食欲<br /><em>替你作决定。</em></h2>
           <Link className="enter-button" href="/today">
             <span>探索今日美食</span><b aria-hidden="true">↗</b>
           </Link>
