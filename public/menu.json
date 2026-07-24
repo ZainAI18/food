@@ -1,0 +1,328 @@
+﻿{
+    "categories":  [
+                       {
+                           "id":  "breakfast",
+                           "name":  "早餐",
+                           "description":  "从简单温暖的早餐开始新的一天。",
+                           "entryDescription":  "开启一天的温暖选择",
+                           "coverImage":  "/images/menu/breakfast/牛肉滑蛋吐司套餐.jpg",
+                           "products":  [
+                                            {
+                                                "id":  "breakfast-001",
+                                                "name":  "全麦火腿鸡蛋三明治",
+                                                "description":  "全麦面包搭配火腿与鸡蛋，简单又满足。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/breakfast/全麦火腿鸡蛋三明治.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-002",
+                                                "name":  "双层猪柳早餐堡套餐",
+                                                "description":  "双层猪柳早餐堡，适合需要饱足感的早晨。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/breakfast/双层猪柳早餐堡套餐.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-003",
+                                                "name":  "双层猪柳蛋早餐堡套餐",
+                                                "description":  "双层猪柳加入鸡蛋，口感丰富、分量充足。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/breakfast/双层猪柳蛋早餐堡套餐.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-004",
+                                                "name":  "牛肉滑蛋吐司套餐",
+                                                "description":  "嫩滑鸡蛋搭配牛肉与吐司，温暖开启一天。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/breakfast/牛肉滑蛋吐司套餐.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-005",
+                                                "name":  "鲜肉糯米烧卖",
+                                                "description":  "糯米软糯、鲜肉咸香，经典中式早餐选择。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/breakfast/鲜肉糯米烧卖.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-006",
+                                                "name":  "鲜肉肠粉",
+                                                "description":  "肠粉柔滑，包裹鲜香肉馅，口感细嫩。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/breakfast/鲜肉肠粉.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            },
+                                            {
+                                                "id":  "breakfast-007",
+                                                "name":  "鸡排鸡蛋三明治",
+                                                "description":  "鸡排与鸡蛋夹入面包，咸香方便又有分量。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/breakfast/鸡排鸡蛋三明治.jpg",
+                                                "tag":  "早餐",
+                                                "category":  "早餐"
+                                            }
+                                        ]
+                       },
+                       {
+                           "id":  "lunch",
+                           "name":  "午餐",
+                           "description":  "为忙碌的一天准备一份满足的午餐。",
+                           "entryDescription":  "认真吃好每一顿饭",
+                           "coverImage":  "/images/menu/lunch/闽南咸饭＋萝卜牛肉羹＋红烧咖喱牛排.jpg",
+                           "products":  [
+                                            {
+                                                "id":  "lunch-001",
+                                                "name":  "五香鸡腿拼卤肉饭",
+                                                "description":  "五香鸡腿搭配卤肉与米饭，咸香下饭。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/五香鸡腿拼卤肉饭.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-002",
+                                                "name":  "姜母鸭虫草花排骨汤套餐",
+                                                "description":  "姜母鸭搭配虫草花排骨汤，暖胃又有分量。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/姜母鸭虫草花排骨汤套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-003",
+                                                "name":  "家常菜套餐",
+                                                "description":  "日常家常菜组合，荤素搭配、适合午餐。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/家常菜套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-004",
+                                                "name":  "扬州炒饭炸鸡腿",
+                                                "description":  "粒粒分明的炒饭搭配酥香炸鸡腿。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/扬州炒饭炸鸡腿.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-005",
+                                                "name":  "烤鸡腿饭",
+                                                "description":  "烤鸡腿搭配米饭，肉香浓郁、分量充足。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/烤鸡腿饭.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-006",
+                                                "name":  "烧鸭叉烧双拼饭",
+                                                "description":  "烧鸭与叉烧双拼，搭配米饭更满足。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/烧鸭叉烧双拼饭.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-007",
+                                                "name":  "牛肉兰州拌面",
+                                                "description":  "牛肉搭配劲道面条，酱香浓郁。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/牛肉兰州拌面.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-008",
+                                                "name":  "猪杂汤",
+                                                "description":  "鲜香猪杂汤，汤味温润、适合日常午餐。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/猪杂汤.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-009",
+                                                "name":  "玉米排骨汤炒饭套餐",
+                                                "description":  "炒饭配玉米排骨汤，一餐搭配更完整。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/玉米排骨汤炒饭套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-010",
+                                                "name":  "番茄鸡胸意面",
+                                                "description":  "番茄意面搭配鸡胸肉，酸香清爽。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/番茄鸡胸意面.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-011",
+                                                "name":  "老坛酸菜无骨鱼",
+                                                "description":  "酸菜与嫩滑鱼片搭配，酸香开胃。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/老坛酸菜无骨鱼.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-012",
+                                                "name":  "菠萝鸡腿轻食碗",
+                                                "description":  "鸡腿肉搭配菠萝与时蔬，清爽有饱足感。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/菠萝鸡腿轻食碗.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-013",
+                                                "name":  "虾仁意面轻食碗",
+                                                "description":  "虾仁搭配意面与时蔬，口感清爽。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/虾仁意面轻食碗.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-014",
+                                                "name":  "闽南咸饭牛肉套餐",
+                                                "description":  "闽南咸饭搭配牛肉菜品，咸香耐吃。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/闽南咸饭牛肉套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-015",
+                                                "name":  "闽南咸饭＋萝卜牛肉羹＋红烧咖喱牛排",
+                                                "description":  "咸饭、萝卜牛肉羹与咖喱牛排组成的丰富套餐。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/闽南咸饭＋萝卜牛肉羹＋红烧咖喱牛排.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-016",
+                                                "name":  "青椒炒肉土豆丝套餐",
+                                                "description":  "青椒炒肉与土豆丝搭配米饭，家常下饭。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/青椒炒肉土豆丝套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-017",
+                                                "name":  "香辣鸡肉意面轻食碗",
+                                                "description":  "香辣鸡肉搭配意面与蔬菜，微辣开胃。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/香辣鸡肉意面轻食碗.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-018",
+                                                "name":  "鲜肉炖汤套餐",
+                                                "description":  "鲜肉菜品搭配温润炖汤，适合日常正餐。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/lunch/鲜肉炖汤套餐.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            },
+                                            {
+                                                "id":  "lunch-019",
+                                                "name":  "麻辣水煮鱼片",
+                                                "description":  "鱼片嫩滑，麻辣汤底香浓开胃。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/lunch/麻辣水煮鱼片.jpg",
+                                                "tag":  "午餐",
+                                                "category":  "午餐"
+                                            }
+                                        ]
+                       },
+                       {
+                           "id":  "drinks",
+                           "name":  "饮料",
+                           "description":  "咖啡、茶饮与清爽饮品，选择今天喜欢的一杯。",
+                           "entryDescription":  "为今天添一杯喜欢的味道",
+                           "coverImage":  "/images/menu/drinks/开心果抹茶拿铁.jpg",
+                           "products":  [
+                                            {
+                                                "id":  "drinks-001",
+                                                "name":  "开心果抹茶拿铁",
+                                                "description":  "开心果香与抹茶融合，口感顺滑醇厚。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/drinks/开心果抹茶拿铁.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-002",
+                                                "name":  "抹茶拿铁",
+                                                "description":  "清香抹茶搭配柔滑奶香，温润耐喝。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/drinks/抹茶拿铁.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-003",
+                                                "name":  "抹茶星冰乐",
+                                                "description":  "冰凉细腻的抹茶饮品，清爽带有奶香。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/drinks/抹茶星冰乐.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-004",
+                                                "name":  "抹茶柠檬茶",
+                                                "description":  "抹茶与柠檬的清新组合，酸甜爽口。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/drinks/抹茶柠檬茶.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-005",
+                                                "name":  "柑橘冰美式",
+                                                "description":  "冰美式加入柑橘风味，清爽明亮。",
+                                                "happiness":  4,
+                                                "image":  "/images/menu/drinks/柑橘冰美式.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-006",
+                                                "name":  "柚子冷萃咖啡",
+                                                "description":  "冷萃咖啡搭配清新柚香，层次轻盈。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/drinks/柚子冷萃咖啡.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            },
+                                            {
+                                                "id":  "drinks-007",
+                                                "name":  "红枣谷物奶",
+                                                "description":  "红枣与谷物奶香融合，温和顺口。",
+                                                "happiness":  5,
+                                                "image":  "/images/menu/drinks/红枣谷物奶.jpg",
+                                                "tag":  "饮料",
+                                                "category":  "饮料"
+                                            }
+                                        ]
+                       }
+                   ]
+}

@@ -3,62 +3,172 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type Food = { id: number; name: string; country: string; category: string; rating: string; calories: string; description: string; feature: string; reason: string; image: string };
+type MenuProduct = {
+  id: string;
+  name: string;
+  description: string;
+  happiness: number;
+  image: string;
+  tag: string;
+  category: string;
+};
 
-export default function Today() {
-  const [foods, setFoods] = useState<Food[]>([]);
+type MenuCategory = {
+  id: string;
+  name: string;
+  description: string;
+  entryDescription: string;
+  coverImage: string;
+  products: MenuProduct[];
+};
+
+type MenuData = { categories: MenuCategory[] };
+
+export default function MenuPage() {
+  const [categories, setCategories] = useState<MenuCategory[]>([]);
+  const [activeCategory, setActiveCategory] = useState<MenuCategory | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<MenuProduct | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState<Food | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/foods.json").then((r) => r.json()).then((all: Food[]) => {
-      const day = Math.floor(new Date().setHours(0, 0, 0, 0) / 86400000);
-      const ranked = all.map((food) => ({ food, rank: Math.sin(food.id * 999 + day * 77) })).sort((a, b) => a.rank - b.rank);
-      window.setTimeout(() => { setFoods(ranked.slice(0, 10).map((item) => item.food)); setLoading(false); }, 650);
-    });
+    fetch("/menu.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("菜单资料载入失败");
+        return response.json() as Promise<MenuData>;
+      })
+      .then((data) => setCategories(data.categories))
+      .catch(() => setError("菜单暂时无法载入，请稍后再试。"))
+      .finally(() => setLoading(false));
   }, []);
+
   useEffect(() => {
-    document.body.style.overflow = selected ? "hidden" : "";
-    const close = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
+    document.body.style.overflow = selectedProduct ? "hidden" : "";
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProduct(null);
+    };
     window.addEventListener("keydown", close);
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", close); };
-  }, [selected]);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", close);
+    };
+  }, [selectedProduct]);
 
   return (
-    <main className="today-page">
+    <main className="today-page menu-page">
       <header className="today-header">
-        <Link href="/" className="wordmark">SAVOR<span>.</span></Link>
-        <p>每日精选 · <time>{new Intl.DateTimeFormat("zh-CN", { year:"numeric", month:"long", day:"numeric" }).format(new Date())}</time></p>
+        <Link href="/" className="wordmark" aria-label="返回余温首页">余温<span>。</span></Link>
+        <p>{activeCategory ? `${activeCategory.name}菜单` : "我们的菜单"}</p>
       </header>
 
-      <section className="today-intro">
-        <p className="eyebrow">为今天精心挑选</p>
-        <h1>今日精选<span>十道味觉灵感</span></h1>
-        <div className="intro-foot"><p>今天为你挑选的十道美食</p><p>每日自动更新</p></div>
-      </section>
+      {loading && <div className="menu-status" role="status">正在准备菜单……</div>}
+      {error && <div className="menu-status" role="alert">{error}</div>}
 
-      {loading && <div className="loading-copy" role="status">正在准备今天的菜单……</div>}
-      <section className={`food-grid ${loading ? "is-loading" : ""}`} aria-label="今日十道精选美食">
-        {foods.map((food, index) => (
-          <button className="food-card" key={food.id} onClick={() => setSelected(food)} style={{ animationDelay: `${index * 70}ms` }}>
-            <span className="food-number">{String(index + 1).padStart(2, "0")}</span>
-            <span className="image-wrap"><img src={food.image} alt={`${food.name}，${food.country}${food.category}`} loading="lazy" onError={(e) => { e.currentTarget.style.opacity = "0"; }} /></span>
-            <span className="food-info"><span><b>{food.name}</b></span><span className="food-meta">{food.country}<br />{food.category}</span></span>
-            <span className="food-rating">★★★★★ <i>{food.rating}</i></span>
-          </button>
-        ))}
-      </section>
+      {!loading && !error && !activeCategory && (
+        <>
+          <section className="menu-intro">
+            <p className="eyebrow">用心准备每一餐</p>
+            <h1>我们的菜单</h1>
+            <p className="menu-lead">从一份温暖早餐，到丰盛午餐，再配上一杯喜欢的饮料。</p>
+          </section>
 
-      {selected && (
-        <div className="modal-backdrop" onMouseDown={(e) => e.currentTarget === e.target && setSelected(null)}>
-          <article className="food-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <button className="modal-close" onClick={() => setSelected(null)} aria-label="关闭美食详情">关闭</button>
-            <div className="modal-image"><img src={selected.image} alt={selected.name} /><span>{selected.country} · {selected.category}</span></div>
+          <section className="menu-category-list" aria-label="菜单分类">
+            {categories.map((category, index) => (
+              <button
+                className={`menu-category-card menu-category-${category.id}`}
+                key={category.id}
+                onClick={() => {
+                  setActiveCategory(category);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                style={{ animationDelay: `${index * 150}ms` }}
+                aria-label={`查看${category.name}`}
+              >
+                {category.coverImage && <img src={category.coverImage} alt={`${category.name}分类图片`} />}
+                <span className="menu-category-shade" />
+                <span className="menu-category-copy">
+                  <span className="menu-category-index">第{["一", "二", "三"][index]}类</span>
+                  <strong>{category.name}</strong>
+                  <span>{category.entryDescription}</span>
+                </span>
+                <span className="menu-category-enter">查看{category.name}<i aria-hidden="true">→</i></span>
+              </button>
+            ))}
+          </section>
+        </>
+      )}
+
+      {!loading && !error && activeCategory && (
+        <>
+          <section className="menu-detail-intro">
+            <button className="menu-back" onClick={() => setActiveCategory(null)} aria-label="返回菜单分类">← 返回菜单</button>
+            <p className="eyebrow">余温餐厅</p>
+            <h1>{activeCategory.name}菜单</h1>
+            <p>{activeCategory.description}</p>
+          </section>
+
+          {activeCategory.products.length > 0 ? (
+            <section className="menu-product-grid" aria-label={`${activeCategory.name}产品列表`}>
+              {activeCategory.products.map((product, index) => (
+                <button
+                  className="menu-product-card"
+                  key={product.id}
+                  onClick={() => setSelectedProduct(product)}
+                  style={{ animationDelay: `${index * 90}ms` }}
+                  aria-label={`查看${product.name}详情`}
+                >
+                  <span className="menu-product-image">
+                    {product.image ? (
+                      <img src={product.image} alt={`${product.name}图片`} />
+                    ) : (
+                      <span className="menu-placeholder" role="img" aria-label="图片待添加">
+                        <i aria-hidden="true"><b /><b /></i>
+                        <span>图片待添加</span>
+                      </span>
+                    )}
+                  </span>
+                  <span className="menu-product-content">
+                    <span className="menu-product-id">编号 {product.id}</span>
+                    <strong>{product.name}</strong>
+                    <span className="menu-product-description">{product.description}</span>
+                    <span className="menu-product-meta">
+                      <span>{product.tag}</span>
+                      <b className="menu-happiness" aria-label={`开心指数${product.happiness}颗满意笑脸`}>{"😊".repeat(product.happiness)}</b>
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </section>
+          ) : (
+            <div className="menu-status">这个分类暂时还没有产品。</div>
+          )}
+        </>
+      )}
+
+      {selectedProduct && (
+        <div className="modal-backdrop" onMouseDown={(event) => event.currentTarget === event.target && setSelectedProduct(null)}>
+          <article className="food-modal menu-modal" role="dialog" aria-modal="true" aria-labelledby="menu-modal-title">
+            <button className="modal-close" onClick={() => setSelectedProduct(null)} aria-label="关闭菜品详情">关闭</button>
+            <div className="modal-image menu-modal-image">
+              {selectedProduct.image ? (
+                <img src={selectedProduct.image} alt={`${selectedProduct.name}图片`} />
+              ) : (
+                <span className="menu-placeholder" role="img" aria-label="图片待添加">
+                  <i aria-hidden="true"><b /><b /></i>
+                  <span>图片待添加</span>
+                </span>
+              )}
+              <span>{selectedProduct.category}</span>
+            </div>
             <div className="modal-content">
-              <p className="eyebrow">今日精选</p>
-              <h2 id="modal-title">{selected.name}</h2>
-              <p className="modal-description">{selected.description}</p>
-              <dl><div><dt>热量</dt><dd>{selected.calories}</dd></div><div><dt>特色</dt><dd>{selected.feature}</dd></div><div><dt>推荐理由</dt><dd>{selected.reason}</dd></div></dl>
+              <p className="eyebrow">{selectedProduct.tag}</p>
+              <h2 id="menu-modal-title">{selectedProduct.name}</h2>
+              <p className="modal-description">{selectedProduct.description}</p>
+              <dl>
+                <div><dt>开心指数</dt><dd className="menu-happiness" aria-label={`开心指数${selectedProduct.happiness}颗满意笑脸`}>{"😊".repeat(selectedProduct.happiness)}</dd></div>
+                <div><dt>分类</dt><dd>{selectedProduct.category}</dd></div>
+                <div><dt>产品编号</dt><dd>{selectedProduct.id}</dd></div>
+              </dl>
             </div>
           </article>
         </div>

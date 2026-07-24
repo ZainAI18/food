@@ -5,10 +5,19 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [progress, setProgress] = useState(0);
+  const [selectionProgress, setSelectionProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const selectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setProgress(Math.min(1, window.scrollY / window.innerHeight));
+    const onScroll = () => {
+      setProgress(Math.min(1, window.scrollY / window.innerHeight));
+      if (selectionRef.current) {
+        const rect = selectionRef.current.getBoundingClientRect();
+        const distance = Math.max(1, rect.height - window.innerHeight);
+        setSelectionProgress(Math.max(0, Math.min(1, -rect.top / distance)));
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -28,9 +37,10 @@ export default function Home() {
             muted
             loop
             playsInline
+            preload="auto"
             poster="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=2400&q=90"
           >
-            <source src="https://videos.pexels.com/video-files/4253011/4253011-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            <source src="/food1.mp4" type="video/mp4" />
           </video>
           <div className="hero-grain" />
           <div className="hero-shade" />
@@ -47,14 +57,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="manifesto">
-        <p className="section-index">第一幕 — 每日精选</p>
-        <div className="manifesto-copy">
-          <p>每天更新</p>
-          <h2>十道精心挑选<br />的<em>美食。</em></h2>
-          <div className="manifesto-meta"><span>无须注册，打开即可探索</span><span>每日都有新的味觉灵感</span></div>
+      <section className="manifesto" ref={selectionRef}>
+        <div className="manifesto-sticky" style={{ opacity: Math.max(0, Math.min(1, selectionProgress * 4, (1 - selectionProgress) * 3)), transform: `translateY(${(selectionProgress - .5) * -24}px)` }}>
+          <p className="section-index">第一幕 — 每日精选</p>
+          <div className="manifesto-copy">
+            <p>每天更新</p>
+            <h2>好好吃饭<br /><em>认真感受每一餐。</em></h2>
+            <div className="manifesto-meta"><span>无须注册，打开即可探索</span><span>每日都有新的味觉灵感</span></div>
+          </div>
+          <div className="ambient-word">味觉</div>
         </div>
-        <div className="ambient-word">味觉</div>
       </section>
 
       <section className="invitation">

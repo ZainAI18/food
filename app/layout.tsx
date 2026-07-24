@@ -6,9 +6,9 @@ const display = Noto_Serif_SC({ variable: "--font-display", subsets: ["latin"], 
 const sans = Noto_Sans_SC({ variable: "--font-sans", subsets: ["latin"], weight: ["300", "400", "500", "600"] });
 
 export const metadata: Metadata = {
-  title: "SAVOR｜品味此刻",
-  description: "每天十道精心挑选的美食，打开即可探索。",
-  openGraph: { title: "SAVOR｜品味此刻", description: "每天十道精心挑选的美食，打开即可探索。" },
+  title: "余温｜品味此刻",
+  description: "从温暖早餐到丰盛午餐，再配上一杯喜欢的饮料。",
+  openGraph: { title: "余温｜品味此刻", description: "从温暖早餐到丰盛午餐，再配上一杯喜欢的饮料。" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
