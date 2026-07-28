@@ -40,23 +40,42 @@ test("保留三个菜单分类并为菜品卡片提供收藏入口", async () =>
   assert.match(pageSource, /setSelectedProduct\(product\)/);
 });
 
-test("共享收藏接口启用数据库校验、唯一约束与频率限制", async () => {
-  const [hostingText, migration, collectionRoute, itemRoute, helper] =
+test("共享收藏接口启用数据库校验、待购买唯一约束与频率限制", async () => {
+  const [hostingText, migrations, collectionRoute, itemRoute, helper, provider] =
     await Promise.all([
       readFile(new URL(".openai/hosting.json", projectRoot), "utf8"),
-      readFile(new URL("drizzle/0000_grey_xavin.sql", projectRoot), "utf8"),
+      Promise.all([
+        readFile(new URL("drizzle/0000_grey_xavin.sql", projectRoot), "utf8"),
+        readFile(
+          new URL("drizzle/0001_breezy_bishop.sql", projectRoot),
+          "utf8",
+        ),
+      ]).then((parts) => parts.join("\n")),
       readFile(new URL("app/api/favorites/route.ts", projectRoot), "utf8"),
       readFile(new URL("app/api/favorites/[id]/route.ts", projectRoot), "utf8"),
       readFile(new URL("db/favorites.ts", projectRoot), "utf8"),
+      readFile(
+        new URL("app/components/FavoritesProvider.tsx", projectRoot),
+        "utf8",
+      ),
     ]);
 
   assert.equal(JSON.parse(hostingText).d1, "DB");
-  assert.match(migration, /UNIQUE INDEX `favorites_food_id_unique`/);
-  assert.match(migration, /CHECK\("favorites"\."status" in \('pending', 'purchased'\)\)/);
+  assert.match(migrations, /favorites_food_id_unique/);
+  assert.match(migrations, /DROP INDEX `favorites_food_id_unique`/);
+  assert.match(
+    migrations,
+    /CREATE UNIQUE INDEX `favorites_food_id_pending_unique`[\s\S]*WHERE "favorites"\."status" = 'pending'/,
+  );
+  assert.match(migrations, /CHECK\("favorites"\."status" in \('pending', 'purchased'\)\)/);
   assert.match(collectionRoute, /getCanonicalFood\(payload\.foodId\)/);
   assert.match(collectionRoute, /status:\s*201/);
   assert.match(itemRoute, /status = 'purchased'/);
   assert.match(itemRoute, /status = 'pending'/);
   assert.match(helper, /enforceRateLimit/);
   assert.match(helper, /ON CONFLICT\(rate_key\)/);
+  assert.match(helper, /favorites_food_id_pending_unique/);
+  assert.match(helper, /WHERE status = 'pending'/);
+  assert.match(provider, /favorite\.status === "pending"/);
+  assert.match(provider, /pendingFavoriteIds\.has\(foodId\)/);
 });

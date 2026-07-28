@@ -98,7 +98,7 @@ export async function ensureFavoriteSchema() {
         db.prepare(`
           CREATE TABLE IF NOT EXISTS favorites (
             id TEXT PRIMARY KEY NOT NULL,
-            food_id TEXT NOT NULL UNIQUE,
+            food_id TEXT NOT NULL,
             food_name TEXT NOT NULL,
             food_image TEXT NOT NULL,
             food_summary TEXT NOT NULL,
@@ -110,6 +110,14 @@ export async function ensureFavoriteSchema() {
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL
           )
+        `),
+        db.prepare(`
+          DROP INDEX IF EXISTS favorites_food_id_unique
+        `),
+        db.prepare(`
+          CREATE UNIQUE INDEX IF NOT EXISTS favorites_food_id_pending_unique
+          ON favorites (food_id)
+          WHERE status = 'pending'
         `),
         db.prepare(`
           CREATE INDEX IF NOT EXISTS favorites_status_purchased_at_idx

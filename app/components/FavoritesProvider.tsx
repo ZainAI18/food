@@ -175,8 +175,13 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [busy, confirmation, sidebarOpen]);
 
-  const favoriteIds = useMemo(
-    () => new Set(favorites.map((favorite) => favorite.foodId)),
+  const pendingFavoriteIds = useMemo(
+    () =>
+      new Set(
+        favorites
+          .filter((favorite) => favorite.status === "pending")
+          .map((favorite) => favorite.foodId),
+      ),
     [favorites],
   );
   const pending = useMemo(
@@ -203,13 +208,13 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
   const requestAdd = useCallback(
     (product: FavoriteCandidate) => {
-      if (favoriteIds.has(product.id)) {
+      if (pendingFavoriteIds.has(product.id)) {
         setToast("这个食物已经加入今日喜欢");
         return;
       }
       setConfirmation({ kind: "add", product });
     },
-    [favoriteIds],
+    [pendingFavoriteIds],
   );
 
   const showRequestError = (caught: unknown) => {
@@ -239,7 +244,11 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
         setFavorites((current) => [
           data.favorite,
           ...current.filter(
-            (favorite) => favorite.foodId !== data.favorite.foodId,
+            (favorite) =>
+              !(
+                favorite.foodId === data.favorite.foodId &&
+                favorite.status === "pending"
+              ),
           ),
         ]);
         setToast("已加入今日喜欢");
@@ -294,7 +303,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     <FavoritesContext.Provider
       value={{
         favorites,
-        isFavorite: (foodId) => favoriteIds.has(foodId),
+        isFavorite: (foodId) => pendingFavoriteIds.has(foodId),
         requestAdd,
         openSidebar: () => setSidebarOpen(true),
       }}

@@ -25,7 +25,9 @@ export const favorites = sqliteTable(
     updatedAt: text("updated_at").notNull(),
   },
   (table) => [
-    uniqueIndex("favorites_food_id_unique").on(table.foodId),
+    uniqueIndex("favorites_food_id_pending_unique")
+      .on(table.foodId)
+      .where(sql`${table.status} = 'pending'`),
     check(
       "favorites_status_check",
       sql`${table.status} in ('pending', 'purchased')`,
