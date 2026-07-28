@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useFavorites } from "../components/FavoritesProvider";
 
 type MenuProduct = {
   id: string;
@@ -25,6 +26,7 @@ type MenuCategory = {
 type MenuData = { categories: MenuCategory[] };
 
 export default function MenuPage() {
+  const { isFavorite, requestAdd } = useFavorites();
   const [categories, setCategories] = useState<MenuCategory[]>([]);
   const [activeCategory, setActiveCategory] = useState<MenuCategory | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<MenuProduct | null>(null);
@@ -43,13 +45,13 @@ export default function MenuPage() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = selectedProduct ? "hidden" : "";
+    document.body.classList.toggle("menu-modal-open", Boolean(selectedProduct));
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedProduct(null);
     };
     window.addEventListener("keydown", close);
     return () => {
-      document.body.style.overflow = "";
+      document.body.classList.remove("menu-modal-open");
       window.removeEventListener("keydown", close);
     };
   }, [selectedProduct]);
@@ -110,33 +112,48 @@ export default function MenuPage() {
           {activeCategory.products.length > 0 ? (
             <section className="menu-product-grid" aria-label={`${activeCategory.name}产品列表`}>
               {activeCategory.products.map((product, index) => (
-                <button
+                <article
                   className="menu-product-card"
                   key={product.id}
-                  onClick={() => setSelectedProduct(product)}
                   style={{ animationDelay: `${index * 90}ms` }}
-                  aria-label={`查看${product.name}详情`}
                 >
-                  <span className="menu-product-image">
-                    {product.image ? (
-                      <img src={product.image} alt={`${product.name}图片`} />
-                    ) : (
-                      <span className="menu-placeholder" role="img" aria-label="图片待添加">
-                        <i aria-hidden="true"><b /><b /></i>
-                        <span>图片待添加</span>
-                      </span>
-                    )}
-                  </span>
-                  <span className="menu-product-content">
-                    <span className="menu-product-id">编号 {product.id}</span>
-                    <strong>{product.name}</strong>
-                    <span className="menu-product-description">{product.description}</span>
-                    <span className="menu-product-meta">
-                      <span>{product.tag}</span>
-                      <b className="menu-happiness" aria-label={`开心指数${product.happiness}颗满意笑脸`}>{"😊".repeat(product.happiness)}</b>
+                  <button
+                    type="button"
+                    className="menu-product-open"
+                    onClick={() => setSelectedProduct(product)}
+                    aria-label={`查看${product.name}详情`}
+                  >
+                    <span className="menu-product-image">
+                      {product.image ? (
+                        <img src={product.image} alt={`${product.name}图片`} />
+                      ) : (
+                        <span className="menu-placeholder" role="img" aria-label="图片待添加">
+                          <i aria-hidden="true"><b /><b /></i>
+                          <span>图片待添加</span>
+                        </span>
+                      )}
                     </span>
-                  </span>
-                </button>
+                    <span className="menu-product-content">
+                      <span className="menu-product-id">编号 {product.id}</span>
+                      <strong>{product.name}</strong>
+                      <span className="menu-product-description">{product.description}</span>
+                      <span className="menu-product-meta">
+                        <span>{product.tag}</span>
+                        <b className="menu-happiness" aria-label={`开心指数${product.happiness}颗满意笑脸`}>{"😊".repeat(product.happiness)}</b>
+                      </span>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className={`card-favorite-button${isFavorite(product.id) ? " is-favorite" : ""}`}
+                    onClick={() => requestAdd(product)}
+                    aria-label={`${isFavorite(product.id) ? "已收藏" : "收藏"}${product.name}`}
+                    aria-pressed={isFavorite(product.id)}
+                    title={isFavorite(product.id) ? "已加入今日喜欢" : "加入今日喜欢"}
+                  >
+                    <span aria-hidden="true">{isFavorite(product.id) ? "♥" : "♡"}</span>
+                  </button>
+                </article>
               ))}
             </section>
           ) : (
